@@ -1,4 +1,4 @@
-# openclaw-codegen
+# 🦞 openclaw-codegen
 
 Python client for the [OpenClaw](https://github.com/) Gateway API.
 
@@ -7,13 +7,82 @@ models, all 350 RPC operations across 55 clients, and known event payload mappin
 from the pinned OpenClaw Gateway schema. Domain clients are exposed directly and created lazily, so
 the transport client does not need a handwritten registry.
 
+## Usage
+
+### Connect and inspect the gateway
+
 ```python
+from openclaw_codegen import OpenClawClient
+
 async with OpenClawClient(token="...") as client:
-    history = await client.chat.history(session_key="agent:main:main")
-    run = await client.chat.send(session_key="agent:main:main", message="Hello")
-    sessions = await client.sessions.list()
-    agents = await client.agents.list()
+    hello = client.hello
+    print(hello.server.version, hello.protocol, hello.features.methods)
 ```
+
+### Chat, sessions, and agents
+
+```python
+history = await client.chat.history(session_key="agent:main:main")
+run = await client.chat.send(session_key="agent:main:main", message="Hello")
+sessions = await client.sessions.list()
+agents = await client.agents.list()
+```
+
+### Streaming events
+
+`client.events()` yields every event frame the gateway pushes; `parse_event_payload` narrows the
+payload to its typed model (falling back to `dict[str, Any]` for payloads the schema doesn't name):
+
+```python
+from openclaw_codegen import ChatDeltaEvent, ChatFinalEvent, parse_event_payload
+
+async for event in client.events():
+    if event.event != "chat":
+        continue
+    payload = parse_event_payload(event.event, event.payload)
+    match payload:
+        case ChatDeltaEvent(delta_text=text):
+            print(text, end="")
+        case ChatFinalEvent():
+            break
+```
+
+### Tools, filesystem, and other domains
+
+Every RPC domain in the gateway gets its own lazily-created client, e.g. `tools`, `fs`, `cron`,
+`skills`, `terminal`, `secrets`, `mcp`, `plugins`, `worktrees` — see the full list below:
+
+```python
+catalog = await client.tools.catalog(agent_id="main")
+result = await client.tools.invoke(name="fs.listDir", args={"path": "."})
+entries = await client.fs.list_dir(path=".", node_id=None)
+```
+
+### Error handling
+
+RPC failures raise `OpenClawGatewayError`, carrying the gateway's structured error shape:
+
+```python
+from openclaw_codegen import OpenClawGatewayError
+
+try:
+    await client.chat.send(session_key="agent:main:main", message="ping")
+except OpenClawGatewayError as error:
+    print(error.error.code, error.error.message)
+```
+
+<details>
+<summary>All 55 generated domain clients</summary>
+
+`agent`, `agents`, `approval`, `artifacts`, `assistant`, `attach`, `audit`, `board`, `channels`,
+`chat`, `commands`, `config`, `control_ui`, `conversations`, `cron`, `device`, `diagnostics`,
+`doctor`, `environments`, `exec`, `fs`, `gateway`, `logs`, `mcp`, `memory`, `message`, `migrations`,
+`models`, `native_hook`, `node`, `openclaw`, `plugin`, `plugins`, `push`, `question`, `root`,
+`secrets`, `session`, `sessions`, `skills`, `system`, `talk`, `tasks`, `task_suggestions`,
+`terminal`, `tools`, `tts`, `ui`, `update`, `usage`, `users`, `voicewake`, `web`, `wizard`,
+`worktrees`
+
+</details>
 
 ## Installation
 
