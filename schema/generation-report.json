@@ -1,0 +1,347 @@
+{
+  "counts": {
+    "definitions": 659,
+    "generated_domains": 55,
+    "generated_models": 663,
+    "generated_operations": 350,
+    "inferred_params": 260,
+    "inferred_results": 146,
+    "methods": 350,
+    "naming_mismatches": 20,
+    "schema_gaps": 186
+  },
+  "known_events": {
+    "chat": "ChatEvent"
+  },
+  "normalized_matches": {
+    "conversations.list": {
+      "params": "ConversationListParams",
+      "result": "ConversationListResult"
+    },
+    "conversations.send": {
+      "params": "ConversationSendParams",
+      "result": "ConversationSendResult"
+    },
+    "conversations.turn": {
+      "params": "ConversationTurnParams",
+      "result": "ConversationTurnResult"
+    },
+    "conversations.turn.cancel": {
+      "params": "ConversationTurnCancelParams",
+      "result": "ConversationTurnCancelResult"
+    },
+    "session.members.add": {
+      "params": "SessionMemberAddParams"
+    },
+    "session.members.remove": {
+      "params": "SessionMemberRemoveParams"
+    },
+    "skills.proposals.apply": {
+      "result": "SkillsProposalApplyResult"
+    },
+    "skills.proposals.create": {
+      "params": "SkillsProposalCreateParams"
+    },
+    "skills.proposals.evaluate": {
+      "params": "SkillsProposalEvaluateParams",
+      "result": "SkillsProposalEvaluateResult"
+    },
+    "skills.proposals.events.list": {
+      "params": "SkillsProposalEventsListParams",
+      "result": "SkillsProposalEventsListResult"
+    },
+    "skills.proposals.historyScan": {
+      "params": "SkillsProposalHistoryScanParams",
+      "result": "SkillsProposalHistoryScanResult"
+    },
+    "skills.proposals.historyStatus": {
+      "params": "SkillsProposalHistoryStatusParams"
+    },
+    "skills.proposals.inspect": {
+      "params": "SkillsProposalInspectParams",
+      "result": "SkillsProposalInspectResult"
+    },
+    "skills.proposals.requestRevision": {
+      "params": "SkillsProposalRequestRevisionParams",
+      "result": "SkillsProposalRequestRevisionResult"
+    },
+    "skills.proposals.revise": {
+      "params": "SkillsProposalReviseParams"
+    },
+    "skills.proposals.update": {
+      "params": "SkillsProposalUpdateParams"
+    }
+  },
+  "notes": [
+    "The published schema has no event-name registry; event mappings require explicit overrides.",
+    "The published schema has no per-method payload contract; params and result models are matched by name.",
+    "unresolved_methods.naming_mismatch lists unclaimed models close enough to be fixed by an override.",
+    "unresolved_methods.schema_gap lists methods the schema describes no model for at all.",
+    "Anonymous nested object schemas are represented as dict[str, Any].",
+    "JSON Schema conditional constraints are left to the gateway for runtime validation."
+  ],
+  "schema": {
+    "sha256": "5687f333bd77d756890b845bf04ff60415d3a8a63e0cc8d65478401673987a7b",
+    "version": "2026.7.2-beta.7"
+  },
+  "unresolved_methods": {
+    "naming_mismatch": {
+      "agent.identity.get": {
+        "params": "AgentIdentityParams",
+        "result": "AgentIdentityResult"
+      },
+      "session.members.add": {
+        "result": "SessionMemberMutationResult"
+      },
+      "session.members.remove": {
+        "result": "SessionMemberMutationResult"
+      },
+      "sessions.groups.put": {
+        "result": "SessionsGroupsMutationResult"
+      },
+      "sessions.viewers.set": {
+        "params": "SessionsViewerPresenceSetParams",
+        "result": "SessionsViewerPresenceSetResult"
+      },
+      "skills.curator.pin": {
+        "params": "SkillsCuratorActionParams",
+        "result": "SkillsCuratorActionResult"
+      },
+      "skills.curator.restore": {
+        "params": "SkillsCuratorActionParams",
+        "result": "SkillsCuratorActionResult"
+      },
+      "skills.curator.unpin": {
+        "params": "SkillsCuratorActionParams",
+        "result": "SkillsCuratorActionResult"
+      },
+      "skills.proposals.apply": {
+        "params": "SkillsProposalActionParams"
+      },
+      "skills.proposals.create": {
+        "result": "SkillsProposalRecordResult"
+      },
+      "skills.proposals.quarantine": {
+        "params": "SkillsProposalActionParams"
+      },
+      "skills.proposals.reject": {
+        "params": "SkillsProposalActionParams",
+        "result": "SkillsProposalRecordResult"
+      },
+      "skills.proposals.revise": {
+        "result": "SkillsProposalRecordResult"
+      },
+      "skills.proposals.update": {
+        "result": "SkillsProposalRecordResult"
+      },
+      "talk.session.cancelTurn": {
+        "result": "TalkSessionTurnResult"
+      },
+      "talk.session.close": {
+        "result": "TalkSessionOkResult"
+      },
+      "talk.session.endTurn": {
+        "params": "TalkSessionTurnParams",
+        "result": "TalkSessionTurnResult"
+      },
+      "talk.session.startTurn": {
+        "params": "TalkSessionTurnParams",
+        "result": "TalkSessionTurnResult"
+      },
+      "talk.session.steer": {
+        "result": "TalkSessionTurnResult"
+      },
+      "terminal.close": {
+        "result": "TerminalAckResult"
+      }
+    },
+    "schema_gap": [
+      "health",
+      "diagnostics.stability",
+      "doctor.memory.status",
+      "doctor.memory.dreamDiary",
+      "doctor.memory.backfillDreamDiary",
+      "doctor.memory.resetDreamDiary",
+      "doctor.memory.resetGroundedShortTerm",
+      "doctor.memory.repairDreamingArtifacts",
+      "doctor.memory.dedupeDreamDiary",
+      "doctor.memory.remHarness",
+      "channels.start",
+      "channels.stop",
+      "channels.logout",
+      "status",
+      "usage.status",
+      "usage.cost",
+      "tts.status",
+      "tts.providers",
+      "tts.personas",
+      "tts.enable",
+      "tts.disable",
+      "tts.convert",
+      "tts.setProvider",
+      "tts.setPersona",
+      "config.get",
+      "config.set",
+      "config.apply",
+      "config.patch",
+      "config.schema",
+      "exec.approvals.get",
+      "exec.approvals.set",
+      "exec.approvals.node.get",
+      "exec.approvals.node.set",
+      "exec.approval.get",
+      "exec.approval.list",
+      "exec.approval.request",
+      "exec.approval.waitDecision",
+      "exec.approval.resolve",
+      "plugin.approval.list",
+      "plugin.approval.request",
+      "plugin.approval.waitDecision",
+      "plugin.approval.resolve",
+      "openclaw.chat",
+      "openclaw.chat.history",
+      "openclaw.changes.list",
+      "openclaw.approval.list",
+      "openclaw.setup.detect",
+      "openclaw.setup.activate",
+      "openclaw.setup.auth.start",
+      "openclaw.setup.prepare.start",
+      "wizard.cancel",
+      "talk.client.transcript",
+      "talk.client.close",
+      "talk.client.steer",
+      "talk.session.appendAudio",
+      "talk.session.cancelOutput",
+      "talk.session.acknowledgeMark",
+      "talk.session.submitToolResult",
+      "talk.mode",
+      "models.authStatus",
+      "models.authLogout",
+      "mcp.app.view",
+      "mcp.app.listTools",
+      "mcp.app.listResources",
+      "mcp.app.listResourceTemplates",
+      "mcp.app.readResource",
+      "mcp.app.callTool",
+      "mcp.app.updateModelContext",
+      "board.get",
+      "board.update",
+      "board.widget.put",
+      "board.widget.grant",
+      "board.event",
+      "users.list",
+      "users.self",
+      "users.linkEmail",
+      "users.setDisplayName",
+      "users.setAvatar",
+      "worktrees.create",
+      "worktrees.restore",
+      "skills.status",
+      "skills.upload.begin",
+      "skills.upload.chunk",
+      "skills.upload.commit",
+      "skills.install",
+      "skills.update",
+      "skills.proposals.historyStatus",
+      "update.status",
+      "update.run",
+      "voicewake.get",
+      "voicewake.set",
+      "secrets.reload",
+      "voicewake.routing.get",
+      "voicewake.routing.set",
+      "sessions.list",
+      "sessions.subscribe",
+      "sessions.unsubscribe",
+      "sessions.messages.subscribe",
+      "sessions.messages.unsubscribe",
+      "sessions.preview",
+      "sessions.describe",
+      "sessions.send",
+      "sessions.abort",
+      "sessions.patch",
+      "sessions.cleanup",
+      "sessions.reset",
+      "sessions.delete",
+      "sessions.compact",
+      "sessions.groups.rename",
+      "sessions.groups.delete",
+      "last-heartbeat",
+      "set-heartbeats",
+      "wake",
+      "node.pair.list",
+      "node.pair.approve",
+      "node.pair.reject",
+      "node.pair.remove",
+      "device.pair.list",
+      "device.pair.approve",
+      "device.pair.reject",
+      "device.pair.remove",
+      "device.pair.rename",
+      "device.token.rotate",
+      "device.token.revoke",
+      "node.rename",
+      "node.list",
+      "node.describe",
+      "node.pluginSurface.refresh",
+      "node.pluginTools.update",
+      "node.skills.update",
+      "node.invoke",
+      "node.pending.pull",
+      "node.pending.ack",
+      "node.invoke.progress",
+      "node.invoke.result",
+      "cron.get",
+      "cron.list",
+      "cron.status",
+      "cron.update",
+      "cron.remove",
+      "cron.run",
+      "cron.runs",
+      "gateway.identity.get",
+      "gateway.restart.preflight",
+      "gateway.restart.request",
+      "system-presence",
+      "system-event",
+      "message.action",
+      "send",
+      "agent",
+      "agent.wait",
+      "chat.history",
+      "chat.startup",
+      "chat.metadata",
+      "chat.abort",
+      "terminal.input",
+      "terminal.resize",
+      "assistant.media.get",
+      "sessions.get",
+      "sessions.resolve",
+      "sessions.usage",
+      "sessions.usage.timeseries",
+      "sessions.usage.logs",
+      "poll",
+      "sessions.steer",
+      "attach.grant",
+      "attach.revoke",
+      "push.web.vapidPublicKey",
+      "push.web.subscribe",
+      "push.web.unsubscribe",
+      "push.web.test",
+      "config.openFile",
+      "connect",
+      "chat.inject",
+      "nativeHook.invoke",
+      "web.login.start",
+      "web.login.wait",
+      "terminal.list",
+      "controlUi.githubPreview",
+      "controlUi.sessionPullRequests.subscribe",
+      "openclaw.setup.verify",
+      "plugin.surface.refresh",
+      "board.prompt.authorize",
+      "board.data.read",
+      "board.action",
+      "memory.search"
+    ]
+  }
+}

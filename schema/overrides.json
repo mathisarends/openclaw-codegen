@@ -1,0 +1,84 @@
+{
+  "domains": {
+    "chat": {
+      "event_registry": true
+    }
+  },
+  "events": {
+    "chat": "ChatEvent"
+  },
+  "field_defaults": {
+    "ChatSendParams.idempotencyKey": "uuid4",
+    "RequestFrame.id": "uuid4"
+  },
+  "model_definitions": {
+    "GatewayServer": {
+      "type": "object",
+      "required": ["version", "connId"],
+      "properties": {
+        "version": {"type": "string", "minLength": 1},
+        "connId": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "GatewayFeatures": {
+      "type": "object",
+      "required": ["methods", "events"],
+      "properties": {
+        "methods": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "events": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "capabilities": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      },
+      "additionalProperties": false
+    },
+    "GatewayPolicy": {
+      "type": "object",
+      "required": ["maxPayload", "maxBufferedBytes", "tickIntervalMs"],
+      "properties": {
+        "maxPayload": {"type": "integer", "minimum": 1},
+        "maxBufferedBytes": {"type": "integer", "minimum": 1},
+        "tickIntervalMs": {"type": "integer", "minimum": 1},
+        "allowedSessionVisibilities": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {"type": "string", "const": "shared"},
+              {"type": "string", "const": "read-only"},
+              {"type": "string", "const": "suggest"},
+              {"type": "string", "const": "draft"}
+            ]
+          }
+        },
+        "hasMultipleSessionSharingIdentities": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    },
+    "ChatSendAck": {
+      "type": "object",
+      "required": ["runId", "status"],
+      "properties": {
+        "runId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "type": "string",
+          "enum": ["started", "ok", "error"]
+        },
+        "summary": {
+          "type": "string"
+        },
+        "serverTiming": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "operations": {
+    "chat.send": {
+      "result": "ChatSendAck"
+    }
+  }
+}
