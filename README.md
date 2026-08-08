@@ -7,6 +7,15 @@ models, all 350 RPC operations across 55 clients, and known event payload mappin
 from the pinned OpenClaw Gateway schema. Domain clients are exposed directly and created lazily, so
 the transport client does not need a handwritten registry.
 
+## Contents
+
+- [Usage](#usage)
+- [Installation](#installation)
+- [Development](#development)
+- [Regenerating the client](#regenerating-the-client)
+- [Limitations](#limitations)
+- [Origin](#origin)
+
 ## Usage
 
 ### Connect and inspect the gateway
@@ -151,8 +160,8 @@ rather than known:
     automatically (fix via `schema/overrides.json`, see below).
   - `schema_gaps`: methods the schema describes no model for at all — these operations are typed
     with untyped `dict[str, Any]` params/results, or are missing entirely from the generated client.
-  Run `python scripts/generate.py` and inspect the report after any schema update; the counts and
-  lists change whenever the upstream schema does.
+    Run `python scripts/generate.py` and inspect the report after any schema update; the counts and
+    lists change whenever the upstream schema does.
 - **`schema/overrides.json` is a manual patch layer.** It hand-supplies the domain configs, event
   registry entries, field defaults, extra model definitions, and per-operation model bindings that
   the schema itself cannot express. It is maintained by hand against one pinned schema version — it
@@ -167,18 +176,13 @@ rather than known:
   - any other version mismatch (older, newer, or unparsable) only emits an
     `OpenClawCompatibilityWarning` and proceeds — the RPC/event shapes may not actually match what
     the connected gateway sends or expects;
-  - pass `strict_version=True` to `OpenClawClient` to turn *any* version mismatch into a hard error
+  - pass `strict_version=True` to `OpenClawClient` to turn _any_ version mismatch into a hard error
     instead of a warning.
-  In short: outside of a major-version guard, this client trusts that the gateway hasn't changed
-  shape since the pinned schema was generated. There is no runtime schema negotiation.
+    In short: outside of a major-version guard, this client trusts that the gateway hasn't changed
+    shape since the pinned schema was generated. There is no runtime schema negotiation.
 
 Because of these three points, treat this client as a convenience layer generated to cover most of
 the protocol (350 of the gateway's RPC methods across 55 domains), not a guarantee of full or
 permanently up-to-date coverage. Pin gateway and client versions together, review
 `schema/generation-report.json` after regenerating, and fall back to the untyped `dict[str, Any]`
 payloads (or a manual override) for anything the generator couldn't resolve.
-
-## Origin
-
-This package was ported from the `openclaw_client` package originally developed inside the `cara`
-project, and rebranded as a standalone `openclaw-codegen` distribution.
