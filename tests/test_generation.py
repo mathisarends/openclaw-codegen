@@ -89,7 +89,7 @@ def test_methods_without_a_schema_contract_expose_a_params_passthrough() -> None
 
 
 def test_generated_clients_are_flat_modules() -> None:
-    generated = _PACKAGE_ROOT / "src" / "openclaw_codegen" / "generated"
+    generated = _PACKAGE_ROOT / "openclaw_codegen" / "generated"
     assert (generated / "clients" / "chat.py").is_file()
     assert (generated / "clients" / "sessions.py").is_file()
     assert (generated / "clients" / "agents.py").is_file()

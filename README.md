@@ -151,7 +151,7 @@ rather than known:
 - **Untyped payloads.** Anonymous nested object schemas that the source schema doesn't name are
   represented as plain `dict[str, Any]` instead of a model — currently ~190 fields across the
   generated protocol module (see `props`, `client`, `parameters`, `error`, etc. in
-  `src/openclaw_codegen/generated/protocol.py`). Reading or writing through those fields gets no
+  `openclaw_codegen/generated/protocol.py`). Reading or writing through those fields gets no
   structural validation or autocomplete; treat them as opaque JSON.
 - **Params/result models matched by name, not by contract.** Since the schema doesn't declare which
   model belongs to which RPC method, the generator infers `<Method>Params`/`<Method>Result` pairs by
@@ -168,7 +168,7 @@ rather than known:
   is not re-derived automatically, so it can silently go stale (miss a new naming mismatch, bind a
   method to the wrong model) when the schema is updated without also reviewing the override diff.
 - **Version drift between client and gateway.** The generated `SCHEMA_PACKAGE_VERSION` constant
-  (`src/openclaw_codegen/generated/version.py`) freezes the exact `@openclaw/gateway-protocol`
+  (`openclaw_codegen/generated/version.py`) freezes the exact `@openclaw/gateway-protocol`
   version this client was generated from (see `schema/metadata.json`). At connect time
   (`client.py:_validate_gateway_compatibility`):
   - a **different release major** than the gateway's reported version raises immediately — the

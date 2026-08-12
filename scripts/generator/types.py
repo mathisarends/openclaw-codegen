@@ -65,6 +65,6 @@ class GenerationPaths:
             schema=package_root / "schema" / "protocol.schema.json",
             metadata=package_root / "schema" / "metadata.json",
             overrides=package_root / "schema" / "overrides.json",
-            generated=package_root / "src" / "openclaw_codegen" / "generated",
+            generated=package_root / "openclaw_codegen" / "generated",
             report=package_root / "schema" / "generation-report.json",
         )
