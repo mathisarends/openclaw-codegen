@@ -15,7 +15,7 @@ def test_root_module_exposes_generated_client_accessors_and_events() -> None:
     assert "from .events import EVENT_PAYLOAD_TYPES, parse_event_payload" in rendered
 
 
-def test_root_module_omits_event_registry_when_no_domain_owns_it() -> None:
+def test_root_module_omits_event_registry_when_no_events_are_configured() -> None:
     rendered = render_root_init(has_event_registry=False)
     assert "from .events import" not in rendered
     assert '__all__ = ["OpenClawClients", "SCHEMA_PACKAGE_VERSION"]' in rendered
@@ -27,7 +27,7 @@ def test_render_version_pins_the_resolved_schema_package() -> None:
 
 
 def test_render_events_builds_sorted_payload_registry_and_parser() -> None:
-    rendered = render_events("chat", {"chat.final": "ChatFinalEvent", "chat.delta": "ChatDeltaEvent"})
+    rendered = render_events({"chat.final": "ChatFinalEvent", "chat.delta": "ChatDeltaEvent"})
     assert rendered.index("'chat.delta': protocol.ChatDeltaEvent,") < rendered.index(
         "'chat.final': protocol.ChatFinalEvent,"
     )

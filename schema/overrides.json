@@ -1,9 +1,4 @@
 {
-  "domains": {
-    "chat": {
-      "event_registry": true
-    }
-  },
   "events": {
     "chat": "ChatEvent"
   },

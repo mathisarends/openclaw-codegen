@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from openclaw_codegen.generator import download_schema, schema_download
+from openclaw_codegen.generator import download_schema, schema_registry
 from openclaw_codegen.generator.types import GenerationPaths
 
 
@@ -18,7 +18,7 @@ def test_schema_download_updates_an_explicit_version_pin(monkeypatch: pytest.Mon
             return json.dumps({"name": "@openclaw/gateway-protocol", "version": "2026.8.0-beta.1"}).encode()
         return schema
 
-    monkeypatch.setattr(schema_download, "_fetch_bytes", fetch)
+    monkeypatch.setattr(schema_registry, "_fetch_bytes", fetch)
     paths = GenerationPaths.from_package_root(tmp_path)
 
     assert download_schema(version="2026.8.0-beta.1", paths=paths)
@@ -45,7 +45,7 @@ def test_invalid_schema_download_does_not_replace_pin(monkeypatch: pytest.Monkey
             b"not JSON",
         ]
     )
-    monkeypatch.setattr(schema_download, "_fetch_bytes", lambda _url: next(responses))
+    monkeypatch.setattr(schema_registry, "_fetch_bytes", lambda _url: next(responses))
 
     with pytest.raises(RuntimeError, match="invalid JSON schema"):
         download_schema(version="2026.8.0", paths=paths)
@@ -55,7 +55,7 @@ def test_invalid_schema_download_does_not_replace_pin(monkeypatch: pytest.Monkey
 
 def test_download_schema_rejects_unexpected_package_metadata(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
     monkeypatch.setattr(
-        schema_download,
+        schema_registry,
         "_fetch_bytes",
         lambda _url: json.dumps({"name": "@some/other-package", "version": "1.0.0"}).encode(),
     )
@@ -81,4 +81,4 @@ def test_schema_download_rejects_floating_or_empty_versions(version: str, tmp_pa
 )
 def test_validate_downloaded_schema_requires_definitions_and_methods(document: object, expected_message: str) -> None:
     with pytest.raises(RuntimeError, match=expected_message):
-        schema_download._validate_downloaded_schema(json.dumps(document).encode(), "https://example.test/schema")
+        schema_registry._validate_schema_document(json.dumps(document).encode(), "https://example.test/schema")

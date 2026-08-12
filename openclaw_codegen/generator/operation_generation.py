@@ -3,8 +3,8 @@ import re
 from collections import Counter
 from collections.abc import Callable, Iterable
 
-from .model_generation import ModelGenerator
-from .naming import (
+from openclaw_codegen.generator.model_generation import ModelGenerator
+from openclaw_codegen.generator.naming import (
     client_class_name,
     client_method_name,
     field_name,
@@ -13,7 +13,7 @@ from .naming import (
     operation_stem,
     pascal_case,
 )
-from .types import (
+from openclaw_codegen.generator.types import (
     Definitions,
     InferredOperations,
     JsonObject,

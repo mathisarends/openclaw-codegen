@@ -30,17 +30,12 @@ class MethodMetadata(TypedDict):
     scope: NotRequired[str]
 
 
-class DomainConfig(TypedDict):
-    event_registry: NotRequired[bool]
-
-
 class ProtocolSchema(TypedDict):
     definitions: Definitions
     methods: dict[str, MethodMetadata]
 
 
 class GeneratorOverrides(TypedDict):
-    domains: dict[str, DomainConfig]
     events: dict[str, str]
     field_defaults: dict[str, str]
     model_definitions: NotRequired[Definitions]

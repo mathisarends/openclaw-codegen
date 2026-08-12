@@ -1,7 +1,7 @@
-from .naming import client_class_name
+from openclaw_codegen.generator.naming import client_class_name
 
 
-def render_events(domain: str, event_overrides: dict[str, str]) -> str:
+def render_events(event_overrides: dict[str, str]) -> str:
     lines = [
         '"""Generated event payload registry. Do not edit manually."""',
         "from typing import Any",

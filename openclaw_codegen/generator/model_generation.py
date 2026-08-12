@@ -2,8 +2,8 @@ import json
 from collections import Counter
 from typing import Any
 
-from .naming import field_name, model_stem, pascal_case, python_literal, snake_case
-from .types import Definitions, JsonObject
+from openclaw_codegen.generator.naming import field_name, model_stem, pascal_case, python_literal, snake_case
+from openclaw_codegen.generator.types import Definitions, JsonObject
 
 
 def _canonical(schema: JsonObject) -> str:

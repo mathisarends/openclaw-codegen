@@ -2,8 +2,8 @@
 
 import argparse
 
-from .pipeline import generate
-from .schema_download import download_schema
+from openclaw_codegen.generator.pipeline import generate
+from openclaw_codegen.generator.schema_download import download_schema
 
 
 def _parse_args() -> argparse.Namespace:
