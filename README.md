@@ -133,8 +133,8 @@ import openclaw_codegen
 openclaw_codegen.generate()
 ```
 
-`python -m openclaw_codegen.generator` provides the same command-line interface. The legacy
-`python scripts/generate.py` entry point remains as a thin compatibility wrapper.
+`python -m openclaw_codegen.generator` provides the same command-line interface. The
+`scripts/generate.sh` entry point remains as a thin compatibility wrapper.
 
 Floating distribution tags such as `beta` and `latest` are rejected so schema updates remain
 reproducible.

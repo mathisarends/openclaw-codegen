@@ -1,7 +1,6 @@
 import inspect
 import json
 import subprocess
-import sys
 from enum import StrEnum
 from pathlib import Path
 from typing import Any, get_args
@@ -30,7 +29,7 @@ _PACKAGE_ROOT = Path(__file__).resolve().parents[1]
 
 def test_generated_files_are_current() -> None:
     subprocess.run(
-        [sys.executable, str(_PACKAGE_ROOT / "scripts" / "generate.py"), "--check"],
+        ["sh", str(_PACKAGE_ROOT / "scripts" / "generate.sh"), "--check"],
         check=True,
     )
 
