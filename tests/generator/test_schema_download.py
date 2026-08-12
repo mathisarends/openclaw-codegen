@@ -3,8 +3,9 @@ import json
 from pathlib import Path
 
 import pytest
-from generator import download_schema, schema_download
-from generator.types import GenerationPaths
+
+from openclaw_codegen.generator import download_schema, schema_download
+from openclaw_codegen.generator.types import GenerationPaths
 
 
 def test_schema_download_updates_an_explicit_version_pin(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:

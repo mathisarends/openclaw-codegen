@@ -3,9 +3,10 @@ import json
 from pathlib import Path
 
 import pytest
-from generator import pipeline
-from generator.pipeline import generate
-from generator.types import GenerationPaths
+
+from openclaw_codegen.generator import pipeline
+from openclaw_codegen.generator.pipeline import generate
+from openclaw_codegen.generator.types import GenerationPaths
 
 _PACKAGE_ROOT = Path(__file__).resolve().parents[2]
 

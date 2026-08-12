@@ -1,11 +1,12 @@
 import hashlib
 import json
+import shutil
 import subprocess
 from pathlib import Path
 from typing import cast
 
-from generator.model_generation import ModelGenerator
-from generator.module_rendering import (
+from .model_generation import ModelGenerator
+from .module_rendering import (
     render_client_accessors,
     render_clients_init,
     render_events,
@@ -13,9 +14,9 @@ from generator.module_rendering import (
     render_root_init,
     render_version,
 )
-from generator.naming import snake_case
-from generator.operation_generation import infer_operations, render_client, unresolved_operations
-from generator.types import (
+from .naming import snake_case
+from .operation_generation import infer_operations, render_client, unresolved_operations
+from .types import (
     Definitions,
     DomainConfig,
     GenerationPaths,
@@ -27,8 +28,7 @@ from generator.types import (
     ProtocolSchema,
 )
 
-_PACKAGE_ROOT = Path(__file__).resolve().parents[2]
-_DEFAULT_PATHS = GenerationPaths.from_package_root(_PACKAGE_ROOT)
+_DEFAULT_PATHS = GenerationPaths.default()
 
 
 def generate(*, check: bool = False, paths: GenerationPaths = _DEFAULT_PATHS) -> bool:
@@ -65,7 +65,7 @@ def generate(*, check: bool = False, paths: GenerationPaths = _DEFAULT_PATHS) ->
     }
     changed = _apply_outputs(formatted_outputs, _obsolete_outputs(paths, domains), check=check)
     if check and changed:
-        raise SystemExit("generated files are stale; run: python scripts/generate.py")
+        raise SystemExit("generated files are stale; run: openclaw-codegen")
     return changed
 
 
@@ -91,6 +91,9 @@ def _format_python(path: Path, content: str, *, package_root: Path) -> str:
         package_root / ".venv" / "Scripts" / "ruff.exe",
         package_root / ".venv" / "bin" / "ruff",
     ]
+    discovered_ruff = shutil.which("ruff")
+    if discovered_ruff is not None:
+        candidates.append(Path(discovered_ruff))
     ruff = next((candidate for candidate in candidates if candidate.exists()), None)
     if ruff is None:
         raise RuntimeError("Ruff is required to generate the OpenClaw client")

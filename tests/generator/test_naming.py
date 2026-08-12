@@ -1,5 +1,6 @@
 import pytest
-from generator.naming import (
+
+from openclaw_codegen.generator.naming import (
     client_method_name,
     field_name,
     method_member,

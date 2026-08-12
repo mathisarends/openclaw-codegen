@@ -22,6 +22,7 @@ from .generated.protocol import (
     HelloOk,
 )
 from .generated.version import SCHEMA_PACKAGE_VERSION
+from .generator import download_schema, generate
 
 __all__ = [
     "PROTOCOL_VERSION",
@@ -47,4 +48,6 @@ __all__ = [
     "OpenClawProtocolError",
     "OperatorScope",
     "parse_event_payload",
+    "download_schema",
+    "generate",
 ]

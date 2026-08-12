@@ -5,12 +5,11 @@ from pathlib import Path
 from urllib.parse import quote
 from urllib.request import urlopen
 
-from generator.types import GenerationPaths
+from .types import GenerationPaths
 
 _PACKAGE_NAME = "@openclaw/gateway-protocol"
 _UNPKG_ROOT = "https://unpkg.com"
-_PACKAGE_ROOT = Path(__file__).resolve().parents[2]
-_DEFAULT_PATHS = GenerationPaths.from_package_root(_PACKAGE_ROOT)
+_DEFAULT_PATHS = GenerationPaths.default()
 _EXACT_VERSION_PATTERN = re.compile(r"^\d+\.\d+\.\d+(?:-[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?(?:\+[0-9A-Za-z.-]+)?$")
 
 

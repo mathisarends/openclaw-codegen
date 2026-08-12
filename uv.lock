@@ -35,6 +35,7 @@ version = "0.1.0"
 source = { editable = "." }
 dependencies = [
     { name = "pydantic" },
+    { name = "ruff" },
     { name = "websockets" },
 ]
 
@@ -48,6 +49,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "pydantic", specifier = ">=2.7.0" },
+    { name = "ruff", specifier = ">=0.14.0" },
     { name = "websockets", specifier = ">=15.0" },
 ]
 

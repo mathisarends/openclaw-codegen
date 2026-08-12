@@ -1,4 +1,4 @@
-from generator.naming import client_class_name
+from .naming import client_class_name
 
 
 def render_events(domain: str, event_overrides: dict[str, str]) -> str:

@@ -1,5 +1,6 @@
 import pytest
-from generator.model_generation import ModelGenerator, include_model_dependencies
+
+from openclaw_codegen.generator.model_generation import ModelGenerator, include_model_dependencies
 
 
 def test_model_dependencies_are_rendered_before_their_consumers() -> None:

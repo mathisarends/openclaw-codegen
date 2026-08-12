@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Literal, NotRequired, TypedDict
+from typing import Any, Literal, NotRequired, Self, TypedDict
 
 type JsonObject = dict[str, Any]
 type Definitions = dict[str, JsonObject]
@@ -59,7 +59,7 @@ class GenerationPaths:
     report: Path
 
     @classmethod
-    def from_package_root(cls, package_root: Path) -> "GenerationPaths":
+    def from_package_root(cls, package_root: Path) -> Self:
         return cls(
             package_root=package_root,
             schema=package_root / "schema" / "protocol.schema.json",
@@ -68,3 +68,24 @@ class GenerationPaths:
             generated=package_root / "openclaw_codegen" / "generated",
             report=package_root / "schema" / "generation-report.json",
         )
+
+    @classmethod
+    def from_installed_package(cls, package_dir: Path) -> Self:
+        """Locate bundled inputs and outputs inside an installed package."""
+        return cls(
+            package_root=package_dir.parent,
+            schema=package_dir / "schema" / "protocol.schema.json",
+            metadata=package_dir / "schema" / "metadata.json",
+            overrides=package_dir / "schema" / "overrides.json",
+            generated=package_dir / "generated",
+            report=package_dir / "schema" / "generation-report.json",
+        )
+
+    @classmethod
+    def default(cls) -> Self:
+        """Use repository paths from source and bundled paths from an installation."""
+        package_dir = Path(__file__).resolve().parents[1]
+        repository_root = package_dir.parent
+        if (repository_root / "schema" / "protocol.schema.json").is_file():
+            return cls.from_package_root(repository_root)
+        return cls.from_installed_package(package_dir)

@@ -2,8 +2,8 @@ import json
 from collections import Counter
 from typing import Any
 
-from generator.naming import field_name, model_stem, pascal_case, python_literal, snake_case
-from generator.types import Definitions, JsonObject
+from .naming import field_name, model_stem, pascal_case, python_literal, snake_case
+from .types import Definitions, JsonObject
 
 
 def _canonical(schema: JsonObject) -> str:

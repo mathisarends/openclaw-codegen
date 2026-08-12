@@ -3,8 +3,8 @@ import re
 from collections import Counter
 from collections.abc import Callable, Iterable
 
-from generator.model_generation import ModelGenerator
-from generator.naming import (
+from .model_generation import ModelGenerator
+from .naming import (
     client_class_name,
     client_method_name,
     field_name,
@@ -13,7 +13,7 @@ from generator.naming import (
     operation_stem,
     pascal_case,
 )
-from generator.types import (
+from .types import (
     Definitions,
     InferredOperations,
     JsonObject,

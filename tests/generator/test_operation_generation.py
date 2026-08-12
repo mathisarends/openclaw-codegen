@@ -1,6 +1,7 @@
 import pytest
-from generator.model_generation import ModelGenerator
-from generator.operation_generation import infer_operations, render_client, unresolved_operations
+
+from openclaw_codegen.generator.model_generation import ModelGenerator
+from openclaw_codegen.generator.operation_generation import infer_operations, render_client, unresolved_operations
 
 
 def test_operation_inference_matches_unique_parameter_and_result_models() -> None:

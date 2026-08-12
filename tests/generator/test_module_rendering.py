@@ -1,4 +1,4 @@
-from generator.module_rendering import (
+from openclaw_codegen.generator.module_rendering import (
     render_client_accessors,
     render_clients_init,
     render_events,

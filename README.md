@@ -116,14 +116,25 @@ uv run ruff check .
 Regenerate offline from `schema/protocol.schema.json`:
 
 ```console
-python scripts/generate.py
+openclaw-codegen
 ```
 
 Download an explicit published schema version, pin its package version and SHA-256, and regenerate:
 
 ```bash
-python scripts/generate.py --download-schema 2026.7.2-beta.7
+openclaw-codegen --download-schema 2026.7.2-beta.7
 ```
+
+The generator is part of the installed library and can also be called from Python:
+
+```python
+import openclaw_codegen
+
+openclaw_codegen.generate()
+```
+
+`python -m openclaw_codegen.generator` provides the same command-line interface. The legacy
+`python scripts/generate.py` entry point remains as a thin compatibility wrapper.
 
 Floating distribution tags such as `beta` and `latest` are rejected so schema updates remain
 reproducible.
@@ -160,7 +171,7 @@ rather than known:
     automatically (fix via `schema/overrides.json`, see below).
   - `schema_gaps`: methods the schema describes no model for at all — these operations are typed
     with untyped `dict[str, Any]` params/results, or are missing entirely from the generated client.
-    Run `python scripts/generate.py` and inspect the report after any schema update; the counts and
+    Run `openclaw-codegen` and inspect the report after any schema update; the counts and
     lists change whenever the upstream schema does.
 - **`schema/overrides.json` is a manual patch layer.** It hand-supplies the domain configs, event
   registry entries, field defaults, extra model definitions, and per-operation model bindings that
